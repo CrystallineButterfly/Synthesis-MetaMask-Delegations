@@ -1,6 +1,6 @@
 # Delegated Swarm Mesh
 
-- **Repo:** https://github.com/CrystallineButterfly/Synthesis-MetaMask-Delegations
+- **Repo:** TODO_GITHUB_URL/Synthesis-MetaMask-Delegations
 - **Primary track:** Best Use of MetaMask Delegations
 - **Overlap targets:** SelfProtocol, Venice Private Agents, Lido MCP Server, Uniswap Agentic Finance, ENS, YieldGuard
 - **Primary contract:** DelegationMesh
@@ -18,10 +18,10 @@ A delegation mesh that models root authority, sub-delegations, expiry windows, a
   "status": "verified",
   "project_name": "Delegated Swarm Mesh",
   "track": "Best Use of MetaMask Delegations",
-  "plan_id": "0x47a23514ccf89caccf3ad078d88644a4c5bc6ff8600ec33410592022779780d3",
-  "simulation_hash": "0x323967ce2daec1fa33868d227ddfaecde6562e50b5e6a5a06256f1c381972e7c",
+  "plan_id": "0xa609b3bf8940a7accb6ec28d993142a24b3eb236a0de14e97ec531cd69d239a9",
+  "simulation_hash": "0x862416e32d75b9f2b7e3301d029f1e9d124269f32e9c3b66d2eee4b1ab48020a",
   "execution_status": "awaiting_credentials",
   "tx_ids": [],
-  "created_at": "2026-03-18T21:44:06+00:00"
+  "created_at": "2026-03-18T23:01:22+00:00"
 }
 ```
