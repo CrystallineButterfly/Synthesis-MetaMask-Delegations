@@ -1,27 +1,153 @@
-"""Project-specific context module."""
+"""Project-specific metadata for the local runtime."""
 
-from __future__ import annotations
+from agents.models import ProjectSpec
 
-PROJECT_CONTEXT = {
-  "project_name": "Delegated Swarm Mesh",
-  "track": "Best Use of MetaMask Delegations",
-  "pitch": "A delegation mesh that models root authority, sub-delegations, expiry windows, and intent namespaces for safe multi-agent coordination.",
-  "overlap_targets": [
-    "SelfProtocol",
-    "Venice Private Agents",
-    "Lido MCP Server",
-    "Uniswap Agentic Finance",
-    "ENS",
-    "YieldGuard"
-  ],
-  "goals": [
-    "discover a bounded opportunity",
-    "plan a dry-run-first action",
-    "verify receipts and proofs"
-  ]
-}
+PROJECT_CONTEXT = {'repo_name': 'Synthesis-MetaMask-Delegations',
+ 'project_name': 'Delegated Swarm Mesh',
+ 'track': 'Best Use of MetaMask Delegations',
+ 'pitch': 'A delegation mesh that models root authority, sub-delegations, expiry '
+          'windows, and intent namespaces for safe multi-agent coordination.',
+ 'idea_titles': ['Root-to-Subagent Intent Delegations',
+                 'ZK-Gated Private Delegation Tree',
+                 'Bounded Treasury Executor Mesh'],
+ 'architecture_summary': 'A delegation controller models root delegator policies, '
+                         'sub-delegations, expiry windows, and action namespaces. '
+                         'Python agents generate intent bundles, verify consent '
+                         'proofs, and simulate every delegated path before a live '
+                         'operator signs it.',
+ 'overlap_targets': ['SelfProtocol',
+                     'Venice Private Agents',
+                     'Lido MCP Server',
+                     'Uniswap Agentic Finance',
+                     'ENS',
+                     'YieldGuard'],
+ 'primary_contract_name': 'DelegationMesh',
+ 'primary_python_module': 'delegation_mesh',
+ 'category': 'delegation',
+ 'daily_budget_usd': 102,
+ 'per_action_budget_usd': 25,
+ 'cooldown_seconds': 900,
+ 'discovery_inputs': [{'name': 'delegates',
+                       'description': 'Root operators and scoped sub-delegates.'},
+                      {'name': 'intents',
+                       'description': 'Allowed namespaces, targets, and expiry '
+                                      'windows.'},
+                      {'name': 'policy_envelope',
+                       'description': 'Revocation, pause, and audit requirements.'},
+                      {'name': 'receipts',
+                       'description': 'Delegation digests and submission notes.'}],
+ 'live_demo_steps': ['Copy .env.example to .env and fill the required keys.',
+                     'Deploy the contract with forge script script/Deploy.s.sol '
+                     '--broadcast for DelegationMesh.',
+                     'Run python3 scripts/run_agent.py to produce a dry run for '
+                     'delegation_mesh.',
+                     'Set LIVE_MODE=true and rerun python3 scripts/run_agent.py with '
+                     'real credentials.',
+                     'Run python3 scripts/render_submission.py and attach TxIDs plus '
+                     'repo links.'],
+ 'partners': [{'name': 'MetaMask Delegations',
+               'docs_url': 'https://docs.metamask.io/delegation-toolkit/',
+               'env_vars': ['RPC_URL'],
+               'endpoint_env': '',
+               'action_kind': 'contract_call',
+               'purpose': 'Enforce delegation scopes, expiries, and intent envelopes.'},
+              {'name': 'SelfProtocol',
+               'docs_url': 'https://docs.self.xyz/',
+               'env_vars': ['SELF_PROTOCOL_API_KEY', 'SELF_VERIFICATION_URL'],
+               'endpoint_env': 'SELF_VERIFICATION_URL',
+               'action_kind': 'rest_json',
+               'purpose': 'Gate sensitive actions behind privacy-preserving proofs.'},
+              {'name': 'Venice',
+               'docs_url': 'https://docs.venice.ai/',
+               'env_vars': ['VENICE_API_KEY',
+                            'VENICE_CHAT_COMPLETIONS_URL',
+                            'VENICE_MODEL'],
+               'endpoint_env': 'VENICE_CHAT_COMPLETIONS_URL',
+               'action_kind': 'rest_json',
+               'purpose': 'Run private reasoning over sensitive inputs.'},
+              {'name': 'Lido MCP Server',
+               'docs_url': 'https://docs.lido.fi/',
+               'env_vars': ['RPC_URL'],
+               'endpoint_env': '',
+               'action_kind': 'contract_call',
+               'purpose': 'Call MCP-style Lido verbs behind policy envelopes.'},
+              {'name': 'Uniswap',
+               'docs_url': 'https://developers.uniswap.org/',
+               'env_vars': ['UNISWAP_API_KEY', 'UNISWAP_QUOTE_URL'],
+               'endpoint_env': 'UNISWAP_QUOTE_URL',
+               'action_kind': 'rest_json',
+               'purpose': 'Quote swaps and bounded liquidity moves.'},
+              {'name': 'ENS',
+               'docs_url': 'https://docs.ens.domains/',
+               'env_vars': ['ENS_NAME'],
+               'endpoint_env': '',
+               'action_kind': 'contract_call',
+               'purpose': 'Publish human-readable coordination and identity '
+                          'receipts.'}],
+ 'actions': [{'id': 'metamask_delegations_delegate_scope',
+              'target': 'metamask_delegations',
+              'purpose': 'Use MetaMask Delegations for a bounded action in this repo.',
+              'partner': 'MetaMask Delegations',
+              'action_kind': 'contract_call',
+              'max_amount_usd': 2,
+              'priority': 100,
+              'sensitivity': 'high',
+              'notes': ['Call MetaMask Delegations only after a dry-run artifact '
+                        'exists.',
+                        'Use https://docs.metamask.io/delegation-toolkit/ for '
+                        'credential setup.']},
+             {'id': 'selfprotocol_zk_verify',
+              'target': 'selfprotocol',
+              'purpose': 'Use SelfProtocol for a bounded action in this repo.',
+              'partner': 'SelfProtocol',
+              'action_kind': 'rest_json',
+              'max_amount_usd': 3,
+              'priority': 95,
+              'sensitivity': 'high',
+              'notes': ['Call SelfProtocol only after a dry-run artifact exists.',
+                        'Use https://docs.self.xyz/ for credential setup.']},
+             {'id': 'venice_private_analysis',
+              'target': 'venice',
+              'purpose': 'Use Venice for a bounded action in this repo.',
+              'partner': 'Venice',
+              'action_kind': 'rest_json',
+              'max_amount_usd': 5,
+              'priority': 90,
+              'sensitivity': 'high',
+              'notes': ['Call Venice only after a dry-run artifact exists.',
+                        'Use https://docs.venice.ai/ for credential setup.']},
+             {'id': 'lido_mcp_server_mcp_call',
+              'target': 'lido_mcp_server',
+              'purpose': 'Use Lido MCP Server for a bounded action in this repo.',
+              'partner': 'Lido MCP Server',
+              'action_kind': 'contract_call',
+              'max_amount_usd': 2,
+              'priority': 85,
+              'sensitivity': 'medium',
+              'notes': ['Call Lido MCP Server only after a dry-run artifact exists.',
+                        'Use https://docs.lido.fi/ for credential setup.']},
+             {'id': 'uniswap_quote_route',
+              'target': 'uniswap',
+              'purpose': 'Use Uniswap for a bounded action in this repo.',
+              'partner': 'Uniswap',
+              'action_kind': 'rest_json',
+              'max_amount_usd': 220,
+              'priority': 80,
+              'sensitivity': 'medium',
+              'notes': ['Call Uniswap only after a dry-run artifact exists.',
+                        'Use https://developers.uniswap.org/ for credential setup.']},
+             {'id': 'ens_ens_publish',
+              'target': 'ens',
+              'purpose': 'Use ENS for a bounded action in this repo.',
+              'partner': 'ENS',
+              'action_kind': 'contract_call',
+              'max_amount_usd': 5,
+              'priority': 75,
+              'sensitivity': 'low',
+              'notes': ['Call ENS only after a dry-run artifact exists.',
+                        'Use https://docs.ens.domains/ for credential setup.']}]}
 
 
-def seed_targets() -> list[str]:
-    """Return the first batch of overlap targets for planning."""
-    return list(PROJECT_CONTEXT['overlap_targets'])
+def build_project_spec() -> ProjectSpec:
+    """Return the repository-specific project metadata."""
+    return ProjectSpec.from_dict(PROJECT_CONTEXT)
