@@ -1,6 +1,6 @@
 # Delegated Swarm Mesh
 
-- **Repo:** TODO_GITHUB_URL/Synthesis-MetaMask-Delegations
+- **Repo:** https://github.com/CrystallineButterfly/Synthesis-MetaMask-Delegations
 - **Primary track:** Best Use of MetaMask Delegations
 - **Overlap targets:** SelfProtocol, Venice Private Agents, Lido MCP Server, Uniswap Agentic Finance, ENS, YieldGuard
 - **Primary contract:** DelegationMesh
